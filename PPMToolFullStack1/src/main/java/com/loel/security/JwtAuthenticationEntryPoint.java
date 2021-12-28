@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.loel.security;
 
 import com.google.gson.Gson;
@@ -26,4 +27,34 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 		httpServletResponse.getWriter().print(jsonLoginResponse);
 
 	}
+=======
+package com.loel.security;
+
+import com.google.gson.Gson;
+import com.loel.exceptions.InvalidLoginResponse;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@Component
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
+
+	@Override
+	public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
+			AuthenticationException e) throws IOException, ServletException {
+
+		InvalidLoginResponse loginResponse = new InvalidLoginResponse();
+		String jsonLoginResponse = new Gson().toJson(loginResponse);
+
+		httpServletResponse.setContentType("application/json");
+		httpServletResponse.setStatus(401);
+		httpServletResponse.getWriter().print(jsonLoginResponse);
+
+	}
+>>>>>>> bb5f7472f599139ed6a3b9bc2ea695cff829329c
 }
