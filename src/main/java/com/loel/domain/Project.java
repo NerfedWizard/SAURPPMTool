@@ -21,7 +21,7 @@ import org.hibernate.annotations.Proxy;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-//@Proxy(lazy = false)
+@Proxy(lazy = false)
 @Entity
 public class Project {
 

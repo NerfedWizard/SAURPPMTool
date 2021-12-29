@@ -19,7 +19,7 @@ import org.hibernate.annotations.Proxy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-//@Proxy(lazy = false)
+@Proxy(lazy = false)
 @Entity
 public class ProjectTask {
 

@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-//@Proxy(lazy = false)
+@Proxy(lazy = false)
 @Entity
 public class User implements UserDetails {
 	@Id
