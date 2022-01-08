@@ -1,6 +1,9 @@
 
 package com.loel.security;
 
+import static com.loel.security.SecurityConstraints.EXPIRATION_TIME;
+import static com.loel.security.SecurityConstraints.SECRET;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,16 +13,18 @@ import org.springframework.stereotype.Component;
 
 import com.loel.domain.User;
 
-import io.jsonwebtoken.*;
-
-import static com.loel.security.SecurityConstraints.EXPIRATION_TIME;
-import static com.loel.security.SecurityConstraints.SECRET;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtTokenProvider {
 
 	// Generate the token
-
 	public String generateToken(Authentication authentication) {
 		User user = (User) authentication.getPrincipal();
 		Date now = new Date(System.currentTimeMillis());
@@ -42,21 +47,20 @@ public class JwtTokenProvider {
 			Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
 			return true;
 		} catch (SignatureException ex) {
-			System.out.println("Invalid JWT Signature");
+			System.err.println("Invalid JWT Signature");
 		} catch (MalformedJwtException ex) {
-			System.out.println("Invalid JWT Token");
+			System.err.println("Invalid JWT Token");
 		} catch (ExpiredJwtException ex) {
-			System.out.println("Expired JWT token");
+			System.err.println("Expired JWT token");
 		} catch (UnsupportedJwtException ex) {
-			System.out.println("Unsupported JWT token");
+			System.err.println("Unsupported JWT token");
 		} catch (IllegalArgumentException ex) {
-			System.out.println("JWT claims string is empty");
+			System.err.println("JWT claims string is empty");
 		}
 		return false;
 	}
 
 	// Get user Id from token
-
 	public Long getUserIdFromJWT(String token) {
 		Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
 		String id = (String) claims.get("id");

@@ -1,18 +1,28 @@
 
 package com.loel.web;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
 import com.loel.domain.Project;
 import com.loel.services.MapValidationErrorService;
 import com.loel.services.ProjectService;
+
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("/api/project")
@@ -37,6 +47,7 @@ public class ProjectController {
 		return new ResponseEntity<Project>(project1, HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "Get a Project by Id", notes = "Provide the ID to get projects", response = Project.class)
 	@GetMapping("/{projectId}")
 	public ResponseEntity<?> getProjectById(@PathVariable String projectId, Principal principal) {
 
@@ -46,6 +57,7 @@ public class ProjectController {
 	}
 
 	@GetMapping("/all")
+	@ApiOperation(value = "Get All Projects", notes = "Get All Current Projects", response = Project.class)
 	public Iterable<Project> getAllProjects(Principal principal) {
 		return projectService.findAllProjects(principal.getName());
 	}
