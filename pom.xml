@@ -9,14 +9,12 @@
 		<version>2.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
 	<groupId>com.loel</groupId>
 	<artifactId>PPMTool</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PPMTool</name>
 	<description>Personal Project Management Tool</description>
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -108,9 +106,12 @@
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>2.5.6</version>
 				</plugin>
-
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.7.0.1746</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>

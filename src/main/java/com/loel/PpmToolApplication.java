@@ -1,6 +1,5 @@
 package com.loel;
 
-import org.apache.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +12,6 @@ public class PpmToolApplication {
 	BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-
-	public static final Logger myLog = Logger.getLogger(PpmToolApplication.class.getName());
 
 	public static void main(String[] args) {
 		SpringApplication.run(PpmToolApplication.class, args);

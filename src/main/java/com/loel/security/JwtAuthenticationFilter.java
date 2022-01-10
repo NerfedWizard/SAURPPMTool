@@ -1,6 +1,9 @@
 
 package com.loel.security;
 
+import static com.loel.security.SecurityConstraints.HEADER_STRING;
+import static com.loel.security.SecurityConstraints.TOKEN_PREFIX;
+
 import java.io.IOException;
 import java.util.Collections;
 
@@ -9,6 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,11 +24,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.loel.domain.User;
 import com.loel.services.CustomUserDetailsService;
 
-import static com.loel.security.SecurityConstraints.HEADER_STRING;
-import static com.loel.security.SecurityConstraints.TOKEN_PREFIX;
-
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+	public static final Logger myLog = LogManager.getLogger(JwtAuthenticationFilter.class);
 	@Autowired
 	private JwtTokenProvider tokenProvider;
 
@@ -51,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			}
 
 		} catch (Exception ex) {
-			logger.error("Could not set user authentication in security context", ex);
+			myLog.error("Could not set user authentication in security context", ex);
 		}
 
 		filterChain.doFilter(httpServletRequest, httpServletResponse);

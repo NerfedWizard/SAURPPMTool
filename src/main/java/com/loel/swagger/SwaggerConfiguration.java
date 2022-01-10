@@ -23,8 +23,7 @@ public class SwaggerConfiguration {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("Scrum-As-You-Are").description("Hopes and Dreams From October Batch")
-				.termsOfServiceUrl("http://yourapi.com").contact("Jack@Swagger.com").license("Scrumtastic API  License")
+				.termsOfServiceUrl("http://yourapi.com").license("Scrumtastic API  License")
 				.licenseUrl("Scrum@sYou.are").version("2.0").build();
 	}
-
 }

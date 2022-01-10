@@ -1,5 +1,6 @@
 package com.loel.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -28,11 +29,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+@Proxy(lazy = false)
 @Entity
 @Data
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User implements UserDetails, Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -47,8 +53,8 @@ public class User implements UserDetails {
 	private String password;
 	@Transient
 	private String confirmPassword;
-	private Date create_At;
-	private Date update_At;
+	private Date created_at;
+	private Date updated_at;
 
 	// OneToMany with Project
 	@OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "user", orphanRemoval = true)
@@ -56,12 +62,12 @@ public class User implements UserDetails {
 
 	@PrePersist
 	protected void onCreate() {
-		this.create_At = new Date();
+		this.created_at = new Date();
 	}
 
 	@PreUpdate
 	protected void onUpdate() {
-		this.update_At = new Date();
+		this.updated_at = new Date();
 	}
 
 	/*

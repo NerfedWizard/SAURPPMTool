@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +25,7 @@ import io.jsonwebtoken.UnsupportedJwtException;
 
 @Component
 public class JwtTokenProvider {
+	final Logger myLog = LogManager.getLogger(JwtTokenProvider.class);
 
 	// Generate the token
 	public String generateToken(Authentication authentication) {
@@ -47,15 +50,15 @@ public class JwtTokenProvider {
 			Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
 			return true;
 		} catch (SignatureException ex) {
-			System.err.println("Invalid JWT Signature");
+			myLog.error("Invalid JWT Signature");
 		} catch (MalformedJwtException ex) {
-			System.err.println("Invalid JWT Token");
+			myLog.error("Invalid JWT Token");
 		} catch (ExpiredJwtException ex) {
-			System.err.println("Expired JWT token");
+			myLog.error("Expired JWT token");
 		} catch (UnsupportedJwtException ex) {
-			System.err.println("Unsupported JWT token");
+			myLog.error("Unsupported JWT token");
 		} catch (IllegalArgumentException ex) {
-			System.err.println("JWT claims string is empty");
+			myLog.error("JWT claims string is empty");
 		}
 		return false;
 	}

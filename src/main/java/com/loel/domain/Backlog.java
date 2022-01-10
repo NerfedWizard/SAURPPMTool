@@ -21,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Proxy(lazy = false)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

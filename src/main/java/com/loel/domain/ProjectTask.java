@@ -26,7 +26,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
+@Proxy(lazy = false)
 @Entity
 @Data
 @AllArgsConstructor
@@ -58,13 +58,13 @@ public class ProjectTask {
 	@Column(updatable = false)
 	private String projectIdentifier;
 	@JsonFormat(pattern = "yyyy-mm-dd")
-	private Date create_At;
+	private Date create_at;
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	private Date update_At;
 
 	@PrePersist
 	protected void onCreate() {
-		this.create_At = new Date();
+		this.create_at = new Date();
 	}
 
 	@PreUpdate

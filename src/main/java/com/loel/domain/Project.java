@@ -1,5 +1,7 @@
 package com.loel.domain;
 
+import java.io.Serializable;
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -31,8 +33,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @ApiModel(description = "Details about current Projects")
-public class Project {
-
+public class Project implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@ApiModelProperty(notes = "The Unique ID of the Project")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,16 +51,16 @@ public class Project {
 	@ApiModelProperty(notes = "Description of the Current Project")
 	private String description;
 	@JsonFormat(pattern = "yyyy-mm-dd")
-	private Date start_date;
+	private Date startDate;
 	@JsonFormat(pattern = "yyyy-mm-dd")
-	private Date end_date;
+	private Date endDate;
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	@Column(updatable = false)
 	@ApiModelProperty(notes = "When Project Was Created")
-	private Date created_At;
+	private Date createdAt;
 	@JsonFormat(pattern = "yyyy-mm-dd")
 	@ApiModelProperty(notes = "When the last Update Occured")
-	private Date updated_At;
+	private Date updatedAt;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
 	@JsonIgnore
@@ -72,12 +74,12 @@ public class Project {
 
 	@PrePersist
 	protected void onCreate() {
-		this.created_At = new Date();
+		this.createdAt = new Date();
 	}
 
 	@PreUpdate
 	protected void onUpdate() {
-		this.updated_At = new Date();
+		this.updatedAt = new Date();
 	}
 
 }
